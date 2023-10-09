@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   // Define your metric schema fields here
   // User's display name (e.g., full name)
-  displayName: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -28,6 +32,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  phone: {
+    type: String,
+    unique: true,
+    required: true,
+  }
   // Add other user-related fields as needed
 });
 

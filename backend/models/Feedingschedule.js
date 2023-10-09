@@ -10,5 +10,5 @@ const feedingScheduleSchema = new mongoose.Schema({
   comments: String,
 });
 
-module.exports = mongoose.model('feedingschedule', feedingScheduleSchema);
+module.exports = mongoose.model('Feedschedule', feedingScheduleSchema);
 
