@@ -1,7 +1,7 @@
 // backend/config/database.js
 const mongoose = require('mongoose');
 
-const dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/bsf_farm';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://ndekong:bsffarmmanager@cluster0.xsknlpg.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, {
   useNewUrlParser: true,

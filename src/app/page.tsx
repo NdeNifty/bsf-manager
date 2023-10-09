@@ -1,8 +1,9 @@
 // pages/index.js
+"use client"
 import React, { useState, useEffect } from 'react';
-import MetricsWidget from '../app/components/MetricsWidget';
-import TaskList from '../app/components/TaskList';
-import Dashboard from '../app/components/Dashboard'
+import MetricsWidget from './components/MetricsWidget';
+import TaskList from './components/TaskList';
+import Dashboard from './components/Dashboard'
 
 export default function Home() {
   // Simulated data (replace with actual data retrieval)
