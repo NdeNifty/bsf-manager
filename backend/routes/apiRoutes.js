@@ -1,8 +1,8 @@
 // backend/routes/api.js
 const express = require('express');
 const router = express.Router();
-const metricsController = require('../controllers/metricsControllers');
-const tasksController = require('../controllers/tasksController');
+const metricsController = require('../controllers/metricControllers');
+const tasksController = require('../controllers/tasksControllers');
 
 // Metrics API routes
 router.get('/metrics', metricsController.getMetrics);

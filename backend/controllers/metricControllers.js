@@ -1,5 +1,5 @@
 // backend/controllers/metricController.js
-const Metric = require('../models/Metricinput');
+const Metric = require('../models/Metric');
 
 // Controller function to create a new metric entry
 exports.createMetric = async (req, res) => {

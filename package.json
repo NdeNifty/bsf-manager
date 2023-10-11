@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node app.js",
+    "start": "node backend/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "eslint-config-next": "13.5.4",
     "express": "^4.17.1",
     "mongoose": "^6.0.7",
+    "morgan":"1.10.0",
     "next": "13.5.4",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
