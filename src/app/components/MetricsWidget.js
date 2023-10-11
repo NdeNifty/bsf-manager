@@ -1,4 +1,5 @@
 // components/MetricsWidget.js
+"use client"
 import React from 'react';
 
 export default function MetricsWidget({ title, data }) {

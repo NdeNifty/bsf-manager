@@ -25,3 +25,39 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+}
+
+.modal-button-group {
+  margin-top: 20px;
+}
+
+/* Add any other styles you need */
+
+/* Sidebar active link */
+.bg-blue-500 {
+  background-color: blue;
+}
