@@ -1,16 +1,15 @@
 // pages/index.js
+'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Dataentry from '../components/Dataentry';
+import Dashboard from '../components/Dashboard';
 
-function Dataentrypage() {
+function Home() {
   return (
     <Layout>
-      <Dataentry />
+      <Dashboard />
     </Layout>
   );
 };
 
-export default Dataentrypage;
-
-
+export default Home;

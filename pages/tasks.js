@@ -1,17 +1,16 @@
 // pages/index.js
+'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Dataentry from '../components/Dataentry';
+import Tasks from '../components/Tasks';
 
-function Dataentrypage() {
-   
+function Taskspage() {
   return (
     <Layout>
-      <Dataentry />
+      <Tasks />
     </Layout>
   );
 };
 
-export default Dataentrypage;
-
+export default Taskspage;
 
