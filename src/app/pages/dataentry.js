@@ -2,16 +2,16 @@
 'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Dashboard from '../components/Dashboard';
-import 'tailwindcss/tailwind.css'
+import Dataentry from '../components/Dataentry';
 
-
-function Home() {
+function Dataentrypage() {
   return (
     <Layout>
-      <Dashboard />
+      <Dataentry />
     </Layout>
   );
 };
 
-export default Home;
+export default Dataentrypage;
+
+

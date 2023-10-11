@@ -2,16 +2,15 @@
 'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Dashboard from '../components/Dashboard';
-import 'tailwindcss/tailwind.css'
+import Inventory from '../components/Inventory';
 
-
-function Home() {
+function Inventorypage() {
   return (
     <Layout>
-      <Dashboard />
+      <Inventory />
     </Layout>
   );
 };
 
-export default Home;
+export default Inventorypage ;
+
