@@ -26,6 +26,9 @@ const Sidebar = () => {
         <li className={`p-2 ${isActive('/inventory') ? 'bg-blue-500' : ''}`}>
           <Link href="/inventory">Inventory</Link>
         </li>
+        <li className={`p-2 ${isActive('/sales') ? 'bg-blue-500' : ''}`}>
+          <Link href="/sales">Sales</Link>
+        </li>
         {/* Add more sidebar items as needed */}
       </ul>
     </nav>

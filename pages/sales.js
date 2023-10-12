@@ -2,15 +2,16 @@
 'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Tasks from '../components/Tasks';
+import Sales from '../components/Sales';
+import 'tailwindcss/tailwind.css'
 
-function Taskspage() {
+function Salespage() {
   return (
     <Layout>
-      <Tasks />
+      <Sales />
     </Layout>
   );
 };
 
-export default Taskspage;
+export default Salespage;
 

@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react';
-
 const Dataentry = () => {
   const [activeData, setActiveData] = useState(null);
   const [recordedValues, setRecordedValues] = useState({});
@@ -19,7 +18,7 @@ const Dataentry = () => {
     <div className="dataentry">
       <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 sm:grid-rows-3">
         <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Eggs Harvested')}>
-          Eggs Harvested: {recordedValues['Eggs Harvested'] || 0}
+          Eggs  Harvested: {recordedValues['Eggs Harvested'] || 0}
         </div>
         <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Larvae Harvested')}>
           Larvae Harvested: {recordedValues['Larvae Harvested'] || 0}
