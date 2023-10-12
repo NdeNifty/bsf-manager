@@ -1,5 +1,5 @@
 // backend/controllers/taskController.js
-const Task = require('../models/Task');
+const Task = require('../models/Tasks');
 
 // Controller function to create a new task
 exports.createTask = async (req, res) => {

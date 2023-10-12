@@ -1,10 +1,13 @@
 // backend/config/passport-config.js
+const dotenv = require('dotenv');
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcryptjs');
 const User = require('../models/User'); // Your user model
 
+dotenv.config();
 passport.use(
   new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
     try {
@@ -32,8 +35,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: 'YOUR_GOOGLE_CLIENT_ID',
-      clientSecret: 'YOUR_GOOGLE_CLIENT_SECRET',
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'http://localhost:3000/auth/google/callback', // Replace with your callback URL
     },
     async (accessToken, refreshToken, profile, done) => {
