@@ -1,16 +1,10 @@
-'use client';
-// pages/auth/signup.js
+//signup.js
 import React, { useState } from 'react';
-import 'tailwindcss/tailwind.css'
+import 'tailwindcss/tailwind.css';
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleGoogleSignup = () => {
-    // Redirect to the Google OAuth signup page
-    window.location.href = '/api/auth/signup/google';
-  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -30,7 +24,7 @@ function Signup() {
 
       if (response.ok) {
         // Signup successful, you can redirect to the login page or dashboard
-        window.location.href = '/auth/login';
+        window.location.href = '/';
       } else {
         // Handle signup failure (e.g., show an error message)
         console.error('Signup failed');
@@ -38,6 +32,11 @@ function Signup() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleGoogleSignup = () => {
+    // Redirect to the Google OAuth login page using Passport
+    window.location.href = 'http://localhost:3001/api/auth/google'; // Modify the URL as needed
   };
 
   return (

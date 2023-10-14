@@ -3,6 +3,7 @@
   "description": "Black Soldier Fly Farm Management App",
   "version": "1.0.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,7 +36,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
-    "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3"
   }

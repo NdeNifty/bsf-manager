@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'tailwindcss/tailwind.css'
 
 const Dashboard = () => {
   const [inventoryData, setInventoryData] = useState({});
@@ -16,9 +17,14 @@ const Dashboard = () => {
   useEffect(() => {
     // Fetch inventory data and other relevant data from your backend
     // Example fetch request
-    fetch('/api/inventory') // Replace with your API endpoint
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/inventory'); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
         setInventoryData(data.inventoryData);
         setLarvaeCount(data.larvaeCount);
         setFlyCount(data.flyCount);
@@ -30,11 +36,14 @@ const Dashboard = () => {
         setExpectedEggs(data.expectedEggs);
         setExpectedLarvae(data.expectedLarvae);
         setExpectedPupae(data.expectedPupae);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+      } catch (error) {
+        console.error("Fetching data failed:", error);
+        // Optionally, set some state to show a user-friendly error message in the UI
+      }
+    };
+
+    fetchData();
+}, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
