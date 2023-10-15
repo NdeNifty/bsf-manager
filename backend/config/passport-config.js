@@ -37,13 +37,14 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3001/google/callback', // Replace with your callback URL
+      callbackURL: 'http://localhost:3001/auth/google/callback', // Replace with your callback URL
     },
     async (accessToken, refreshToken, profile, done) => {
+      
       try {
         // Find or create a user with the Google ID
         const existingUser = await User.findOne({ googleId: profile.id });
-
+        
         if (existingUser) {
           return done(null, existingUser);
         }
@@ -66,6 +67,7 @@ passport.use(
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
+  console.log("***",user)
   done(null, user.id);
 });
 

@@ -36,7 +36,7 @@ function Signup() {
 
   const handleGoogleSignup = () => {
     // Redirect to the Google OAuth login page using Passport
-    window.location.href = 'http://localhost:3001/api/auth/google'; // Modify the URL as needed
+    window.location.href = 'http://localhost:3001/auth/google'; // Modify the URL as needed
   };
 
   return (
