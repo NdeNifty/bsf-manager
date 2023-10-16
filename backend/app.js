@@ -11,11 +11,19 @@ const salesRoutes = require('./routes/salesRoutes');
 const taskRoutes = require('./routes/tasksRoutes');
 const dataEntryRoutes = require('./routes/dataEntryRoutes');
 const passport = require('passport');
+const session = require('express-session');
 
 require('./config/passport-config'); // Add this line to import Passport configuration
 
 
 const app = express();
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    // you might also want to set up a store for production use
+  }));
 
 //Auth Routes
 app.use(passport.initialize());
@@ -39,4 +47,3 @@ app.use('/api', inventoryRoutes);
 app.use(errorHandler);
 
 module.exports = app;
-
