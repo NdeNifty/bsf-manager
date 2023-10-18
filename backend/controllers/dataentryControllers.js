@@ -1,5 +1,5 @@
 // backend/controllers/dataEntryController.js
-const DataEntry = require('../models/DataEntry');
+const DataEntry = require('../models/DataEntrySchema');
 
 // Controller function to create a new data entry
 exports.createDataEntry = async (req, res) => {
@@ -7,7 +7,7 @@ exports.createDataEntry = async (req, res) => {
     const newDataEntry = await DataEntry.create(req.body);
     res.status(201).json(newDataEntry);
   } catch (error) {
-    console.error(error);
+    console.error('Error details:', error.message);
     res.status(500).json({ error: 'Data entry creation failed' });
   }
 };

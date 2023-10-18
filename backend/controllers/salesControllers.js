@@ -1,5 +1,5 @@
 // backend/controllers/salesController.js
-const Sale = require('../models/Sales');
+const Sale = require('../models/SalesSchema');
 
 exports.recordSale = async (req, res, next) => {
    try {

@@ -1,13 +1,13 @@
-// backend/models/Metric.js
+// backend/models/DataEntry.js
 const mongoose = require('mongoose');
 
-const dataEntrychema = new mongoose.Schema({
+const dataEntrySchema = new mongoose.Schema({
   // Define your metric schema fields here
   // User ID associated with the data entry
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to the User model
-    required: true,
+    required: false,
   },
   // Date of input (default to the date when the input is made)
   dateOfInput: {
@@ -34,5 +34,5 @@ const dataEntrychema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('DataEntry', dataEntrychema);
+module.exports = mongoose.model('DataEntry', dataEntrySchema);
 

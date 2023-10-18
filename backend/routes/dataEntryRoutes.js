@@ -1,7 +1,7 @@
 // backend/routes/dataEntryRoutes.js
 const express = require('express');
 const router = express.Router();
-const DataEntry = require('../models/DataEntry');
+const DataEntry = require('../models/DataEntrySchema');
 
 // Get all data entries for a user
 router.get('/data-entries', async (req, res, next) => {

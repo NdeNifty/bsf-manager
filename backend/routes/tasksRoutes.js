@@ -1,7 +1,7 @@
 // backend/routes/taskRoutes.js
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/Tasks');
+const Task = require('../models/TasksSchema');
 
 // Get all tasks for a user
 router.get('/tasks', async (req, res, next) => {

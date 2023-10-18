@@ -1,7 +1,7 @@
 // backend/controllers/authController.js
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const User = require('../models/UsersSchema');
 
 // Login controller
 exports.login = (req, res, next) => {

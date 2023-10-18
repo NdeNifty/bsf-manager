@@ -1,18 +1,47 @@
+//components/Dataentry.js
 'use client'
 import React, { useState } from 'react';
+import { createDataEntry } from '../api/apiService'; // Import the API functions
 const Dataentry = () => {
   const [activeData, setActiveData] = useState(null);
   const [recordedValues, setRecordedValues] = useState({});
 
-  const recordData = (dataPoint, value) => {
-    // Handle the logic to record data here, e.g., send an API request
-
-    // For the example, we'll update the recorded values object
-    setRecordedValues({ ...recordedValues, [dataPoint]: value });
-
-    // Clear the active data
-    setActiveData(null);
+  const formatDataToRecord = (dataPoint, value) => {
+    switch (dataPoint) {
+      case 'Eggs Harvested':
+        return { eggsHarvested: value };
+      case 'Larvae Harvested':
+        return { larvaeHarvested: value };
+      case 'Pupae Planted':
+        return { pupaePlanted: value };
+      case 'Waste Input':
+        return { wasteInput: value };
+      case 'Waste Stock':
+        return { wasteStock: value };
+      default:
+        return {};
+    }
   };
+
+  const recordData = (dataPoint, value) => {
+    // Format data to match backend schema
+    const dataToRecord = formatDataToRecord(dataPoint, value);
+  
+    createDataEntry(dataToRecord)
+      .then((createdEntry) => {
+        // Handle the response if needed
+        console.log('Data entry recorded:', createdEntry);
+  
+        // Clear the active data and update the UI if necessary
+        setRecordedValues({ ...recordedValues, [dataPoint]: value });
+        setActiveData(null);
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error('Error creating data entry:', error);
+      });
+  };
+  
 
   return (
     <div className="dataentry">
