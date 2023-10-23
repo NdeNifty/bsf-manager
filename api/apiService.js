@@ -1,10 +1,11 @@
 // api/apiService.js
-const baseUrl = 'api/data-entries'; // Adjust the base URL as needed
+const dataentryUrl = 'http://localhost:3001/api/add-data-entry'; 
+const getinventoryUrl = 'http://localhost:3001/api/get-all-inventory';// Adjust the base URL as needed
 
 // Function to create a new data entry
 export const createDataEntry = async (data) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(dataentryUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,5 +24,18 @@ export const createDataEntry = async (data) => {
   }
 };
 
+//function to fectch inventory data
+export const fetchInventoryData = async () => {
+  try {
+    const response = await fetch(getinventoryUrl); // Adjust to your inventory endpoint
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching inventory data', error);
+    throw error;
+  }
+};
 
 // Add other API functions for GET, PUT, and DELETE requests as needed.

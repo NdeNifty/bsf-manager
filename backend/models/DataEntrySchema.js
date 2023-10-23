@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const dataEntrySchema = new mongoose.Schema({
   // Define your metric schema fields here
   // User ID associated with the data entry
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the User model
-    required: false,
-  },
+  // userId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User', // Reference to the User model
+  //   required: false,
+  // },
   // Date of input (default to the date when the input is made)
   dateOfInput: {
     type: Date,

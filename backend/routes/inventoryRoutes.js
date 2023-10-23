@@ -1,19 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const Inventory = require('../models/Metric');
+const Inventory = require('../controllers/inventoryControllers'); 
+
+// Get all inventories
+router.get('/get-all-inventory', async (req, res) => {
+  try {
+    const inventoryData = await Inventory.getAllInventory();
+    res.json(inventoryData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving all inventory entries' });
+  }
+});
 
 // Get inventory by userId
 router.get('/:userId', async (req, res) => {
   try {
-    const inventory = await Inventory.findOne({ userId: req.params.userId });
+    const inventory = await Inventory.getInventoryByUserId(req.params.userId);
+
     if (!inventory) {
       return res.status(404).json({ message: 'No inventory found for this user' });
     }
     res.json(inventory);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving inventory bla' });
   }
 });
+
+
 
 // Add inventory for a user
 router.post('/', async (req, res) => {
@@ -24,13 +39,15 @@ router.post('/', async (req, res) => {
       feedstockAvailability,
       larvaeCount,
       pupaeCount,
-      adultCount,
+      adultCount
     });
+    
 
     const savedInventory = await inventory.save();
     res.json(savedInventory);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Error adding inventory' });
   }
 });
 
@@ -48,7 +65,8 @@ router.put('/:userId', async (req, res) => {
     }
     res.json(updatedInventory);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Error updating inventory' });
   }
 });
 
@@ -61,7 +79,8 @@ router.delete('/:userId', async (req, res) => {
     }
     res.json({ message: 'Inventory deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error(error);
+    res.status(500).json({ message: 'Error deleting inventory' });
   }
 });
 

@@ -1,61 +1,26 @@
-// backend/controllers/inventoryController.js
-const Inventory = require('../models/Inventory');
+const Inventory = require('../models/DataEntrySchema');
 
-// Controller function to create a new inventory entry
-exports.createInventory = async (req, res) => {
-  try {
-    const newInventory = await Inventory.create(req.body);
-    res.status(201).json(newInventory);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Inventory creation failed' });
-  }
+// Create a new inventory entry
+exports.createInventory = async (data) => {
+  return await Inventory.create(data);
 };
 
-// Controller function to get inventory entries by user ID
-exports.getInventoryByUserId = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const inventoryEntries = await Inventory.find({ userId });
-    res.json(inventoryEntries);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+// Get inventory entries by user ID
+exports.getInventoryByUserId = async (userId) => {
+  return await Inventory.find({ userId });
 };
 
-// Controller function to update an inventory entry by ID
-exports.updateInventory = async (req, res) => {
-  try {
-    const inventoryId = req.params.inventoryId;
-    const updatedInventory = await Inventory.findByIdAndUpdate(
-      inventoryId,
-      req.body,
-      { new: true }
-    );
-    if (!updatedInventory) {
-      return res.status(404).json({ error: 'Inventory entry not found' });
-    }
-    res.json(updatedInventory);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Inventory update failed' });
-  }
+// Update an inventory entry by ID
+exports.updateInventory = async (inventoryId, data) => {
+  return await Inventory.findByIdAndUpdate(inventoryId, data, { new: true });
 };
 
-// Controller function to delete an inventory entry by ID
-exports.deleteInventory = async (req, res) => {
-  try {
-    const inventoryId = req.params.inventoryId;
-    const deletedInventory = await Inventory.findByIdAndRemove(inventoryId);
-    if (!deletedInventory) {
-      return res.status(404).json({ error: 'Inventory entry not found' });
-    }
-    res.json({ message: 'Inventory entry deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Inventory entry deletion failed' });
-  }
+// Delete an inventory entry by ID
+exports.deleteInventory = async (inventoryId) => {
+  return await Inventory.findByIdAndRemove(inventoryId);
 };
 
-// Implement other inventory-related controller functions as needed
+// Get all inventories
+exports.getAllInventory = async () => {
+  return await Inventory.find();
+};

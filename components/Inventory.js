@@ -8,10 +8,10 @@ const Inventory = () => {
   useEffect(() => {
     // Fetch inventory data from your backend
     // Example fetch request
-    fetch('/api/inventory') // Replace with your API endpoint
+    fetch('http://localhost:3001/api/get-all-inventory') // Replace with your API endpoint
       .then((response) => response.json())
       .then((data) => {
-        setInventoryData(data.inventoryData);
+        setInventoryData(data);
       })
       .catch((error) => {
         console.error(error);
