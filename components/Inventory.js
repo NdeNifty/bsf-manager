@@ -7,23 +7,35 @@ const Inventory = () => {
 
   useEffect(() => {
     // Fetch inventory data from your backend
-    // Example fetch request
-    fetch('http://localhost:3001/api/get-all-inventory') // Replace with your API endpoint
-      .then((response) => response.json())
-      .then((data) => {
-        setInventoryData(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    fetch('http://localhost:3001/api/aggregated') // Replace with your API endpoint
+        .then((response) => response.json())
+        .then((data) => {
+            // Assuming you're getting the above format
+            let larvaeHarvested = data.find(item => item.larvaeHarvested)?.larvaeHarvested || 0;
+            let pupaePlanted = data.find(item => item.pupaePlanted)?.pupaePlanted || 0;
+            let wasteavailable = data.find(item => item.pupaePlanted)?.pupaePlanted || 0;
+            
+
+            // Modify this if you're getting more/different data
+            setInventoryData({
+                larvaeCount: larvaeHarvested,
+                pupaeCount: pupaePlanted,
+                wasteavailable: wasteavailable,
+                // ... add other data as needed
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}, []);
+
 
   return (
     <div className="inventory">
       <h1 className="text-2xl font-semibold mb-4">Farm Inventory</h1>
       <div className="border p-4">
         <h2 className="text-xl font-semibold mb-2">Feedstock</h2>
-        <p>Feedstock Availability: {inventoryData.feedstockAvailability} kg</p>
+        <p>Feedstock Availability: {inventoryData.wasteavailable} kg</p>
         {/* Add more feedstock details here */}
       </div>
       <div className="border p-4">
@@ -36,11 +48,7 @@ const Inventory = () => {
         <p>Pupae Count: {inventoryData.pupaeCount}</p>
         {/* Add more pupae details here */}
       </div>
-      <div className="border p-4">
-        <h2 className="text-xl font-semibold mb-2">Waste</h2>
-        <p>Waste Input: {inventoryData.wasteInput} kg</p>
-        {/* Add more waste details here */}
-      </div>
+      
     </div>
   );
 };

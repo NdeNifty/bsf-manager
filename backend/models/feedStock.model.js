@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 
-const FeedStockSchema = new mongoose.Schema({
-  feedType: String,
-  quantity: Number
+const feedStock = new mongoose.Schema({
+  date: { 
+    type: Date,
+    default: Date.now
+  },
+  count: {
+    type: Number,
+    required: true
+  },
+  // Any additional fields you might want for pupa
+  // e.g., location, emergence date, etc.
 });
 
-module.exports = mongoose.model('FeedStock', FeedStockSchema);
+module.exports = mongoose.model('Feed', feedStock);

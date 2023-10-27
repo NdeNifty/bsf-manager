@@ -1,6 +1,6 @@
 // api/apiService.js
 const dataentryUrl = 'http://localhost:3001/api/add-data-entry'; 
-const getinventoryUrl = 'http://localhost:3001/api/get-all-inventory';// Adjust the base URL as needed
+const getinventoryUrl = 'http://localhost:3001/api/aggregated';// Adjust the base URL as needed
 
 // Function to create a new data entry
 export const createDataEntry = async (data) => {

@@ -1,21 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const reportingController = require('../controllers/reporting.controller');
 
-router.get('/total-feedstock', async (req, res) => {
-  try {
-    const totalFeedStock = await reportingController.getTotalFeedStock();
-    res.json({ totalFeedStock });
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
+const inventoryController = require('../controllers/inventory.controller');
 
-// Similar routes for Larvae and Pupa
+// Fetch aggregated data for Feedstock, Larvae, and Pupa
+router.get('/aggregated', inventoryController.getAggregatedData);
+
+// Additional routes using other controller functions can be added here.
 
 module.exports = router;
-
-
 
 
 // const express = require('express');
