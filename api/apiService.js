@@ -1,6 +1,9 @@
 // api/apiService.js
+
 const dataentryUrl = 'http://localhost:3001/api/add-data-entry'; 
-const getinventoryUrl = 'http://localhost:3001/api/aggregated';// Adjust the base URL as needed
+const getinventoryUrl = 'http://localhost:3001/api/aggregated';
+const salesUrl = 'http://localhost:3001/api/add-sale';
+// Adjust the base URL as needed
 
 // Function to create a new data entry
 export const createDataEntry = async (data) => {
@@ -34,6 +37,45 @@ export const fetchInventoryData = async () => {
     return await response.json();
   } catch (error) {
     console.error('Error fetching inventory data', error);
+    throw error;
+  }
+};
+
+
+//function to record sales data
+
+export const createSale = async (saleData) => {
+  console.log(saleData)
+  try {
+    const response = await fetch(salesUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(saleData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating sale', error);
+    throw error;
+  }
+};
+
+//function to fetch sales data
+export const fetchSales = async () => {
+  try {
+    const response = await fetch(salesUrl);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching sales data', error);
     throw error;
   }
 };

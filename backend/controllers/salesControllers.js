@@ -1,21 +1,23 @@
 // backend/controllers/salesController.js
+
 const Sale = require('../models/SalesSchema');
 
-exports.recordSale = async (req, res, next) => {
-   try {
-      const sale = new Sale({ ...req.body, userId: req.user._id });
-      const savedSale = await sale.save();
-      res.status(201).json(savedSale);
-   } catch (error) {
-      next(error);
-   }
+exports.recordSale = async (saledata) => {
+    return await Sale.create(saledata);
 };
 
-exports.getSales = async (req, res, next) => {
-   try {
-      const sales = await Sale.find({ userId: req.user._id });
-      res.status(200).json(sales);
-   } catch (error) {
-      next(error);
-   }
+exports.getSalesByUserId = async (userId) => {
+    return await Sale.find({ userId });
+};
+
+exports.updateSale = async (saleId, data) => {
+    return await Sale.findByIdAndUpdate(saleId, data, { new: true });
+};
+
+exports.deleteSale = async (saleId) => {
+    return await Sale.findByIdAndRemove(saleId);
+};
+
+exports.getAllSales = async () => {
+    return await Sale.find();
 };

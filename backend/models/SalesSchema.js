@@ -1,11 +1,11 @@
-// backend/models/Sales.js
+// backend/models/SalesSchema.js
 const mongoose = require('mongoose');
 
 const saleSchema = new mongoose.Schema({
    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: false,
    },
    customerName: {
       type: String,
@@ -13,7 +13,7 @@ const saleSchema = new mongoose.Schema({
    },
    phone: {
       type: String,
-      required: true,
+      required: false,
    },
    item: {
       type: String,

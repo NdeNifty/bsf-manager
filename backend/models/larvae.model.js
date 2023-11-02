@@ -1,3 +1,4 @@
+// backend/models/larvae.model.js
 const mongoose = require('mongoose');
 
 const LarvaeSchema = new mongoose.Schema({

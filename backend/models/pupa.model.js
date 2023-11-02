@@ -1,3 +1,4 @@
+// backend/models/pupa.model.js
 const mongoose = require('mongoose');
 
 const PupaSchema = new mongoose.Schema({

@@ -41,6 +41,7 @@ app.use('/api', taskRoutes);
 app.use('/api', salesRoutes);
 app.use('/api', dataEntryRoutes);
 app.use('/api', inventoryRoutes);
+
 //app.use(passport.session());
 
 // Error handling middleware

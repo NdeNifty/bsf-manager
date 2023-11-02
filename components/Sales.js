@@ -1,43 +1,54 @@
 import React, { useState } from 'react';
+import { createSale } from '../api/apiService'; // Import the API functions
 
 const Sales = () => {
-  // Initialize the state for form fields
   const [customerName, setCustomerName] = useState('');
   const [phone, setPhone] = useState('');
-  const [item, setItem] = useState('');
+  const [item, setItem] = useState('Eggs');
   const [quantity, setQuantity] = useState(0);
   const [unitPrice, setUnitPrice] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  // Function to handle form submission
-  const handleFormSubmit = (e) => {
+  const handleQuantityChange = (e) => {
+    setQuantity(parseFloat(e.target.value));
+  };
+
+  const handleUnitPriceChange = (e) => {
+    setUnitPrice(parseFloat(e.target.value));
+  };
+
+  const calculateTotalPrice = () => {
+    return quantity * unitPrice;
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Calculate the total price
-    const calculatedTotalPrice = quantity * unitPrice;
-    setTotalPrice(calculatedTotalPrice);
-
-    // Send the sales data to your backend for recording
     const salesData = {
       customerName,
       phone,
       item,
       quantity,
       unitPrice,
-      totalPrice: calculatedTotalPrice,
-      date: new Date().toLocaleDateString(),
+      totalPrice: calculateTotalPrice(),
+      //date: new Date().toLocaleDateString(),
     };
 
-    // You can send the data to your API endpoint for storage
-    // Example: sendSalesDataToAPI(salesData);
+    try {
+      const createdSale = await createSale(salesData);
 
-    // Clear the form fields after submission
-    setCustomerName('');
-    setPhone('');
-    setItem('');
-    setQuantity(0);
-    setUnitPrice(0);
-    setTotalPrice(0);
+      // Handle the response if needed
+      console.log('Sale recorded:', createdSale);
+
+      // Clear the form fields after successful submission
+      setCustomerName('');
+      setPhone('');
+      setItem('');
+      setQuantity(0);
+      setUnitPrice(0);
+    } catch (error) {
+      // Handle errors here
+      console.error('Error creating sale', error);
+    }
   };
 
   return (
@@ -70,14 +81,19 @@ const Sales = () => {
         </div>
         <div>
           <label htmlFor="item">Item</label>
-          <input
-            type="text"
+          <select
             id="item"
             value={item}
             onChange={(e) => setItem(e.target.value)}
             required
             className="w-full p-2 border rounded"
-          />
+            placeholder='Select Item'
+          >
+            <option value="Eggs">Eggs</option>
+            <option value="Larvae">Larvae</option>
+            <option value="Pupa">Pupa</option>
+            <option value="Fertilizer">Fertilizer</option>
+          </select>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -86,7 +102,7 @@ const Sales = () => {
               type="number"
               id="quantity"
               value={quantity}
-              onChange={(e) => setQuantity(parseFloat(e.target.value))}
+              onChange={handleQuantityChange}
               required
               className="w-full p-2 border rounded"
             />
@@ -97,7 +113,7 @@ const Sales = () => {
               type="number"
               id="unitPrice"
               value={unitPrice}
-              onChange={(e) => setUnitPrice(parseFloat(e.target.value))}
+              onChange={handleUnitPriceChange}
               required
               className="w-full p-2 border rounded"
             />
@@ -106,10 +122,8 @@ const Sales = () => {
         <div>
           <label htmlFor="totalPrice">Total Price</label>
           <input
-            type="number"
             id="totalPrice"
-            value={totalPrice}
-            onChange={(e) => setTotalPrice(parseFloat(e.target.value))}
+            value={calculateTotalPrice()}
             disabled
             className="w-full p-2 border rounded"
           />
@@ -124,7 +138,7 @@ const Sales = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700">
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover-bg-blue-700">
           Record Sale
         </button>
       </form>

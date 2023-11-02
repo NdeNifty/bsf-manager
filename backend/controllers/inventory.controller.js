@@ -1,10 +1,13 @@
+// backend/controllers/inventory.controller.js
+
+
 const Feedstock = require('../models/feedStock.model');
 const Larvae = require('../models/larvae.model');
 const Pupa = require('../models/pupa.model');
 
 const getAggregatedData = async (req, res) => {
     try {
-        const feedstockTotal = await Feed.aggregate([
+        const feedstockTotal = await Feedstock.aggregate([
             {
                 $group: {
                     _id: null,

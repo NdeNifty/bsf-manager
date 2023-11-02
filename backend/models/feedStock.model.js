@@ -1,3 +1,4 @@
+// backend/models/feedStock/model.js
 const mongoose = require('mongoose');
 
 const feedStock = new mongoose.Schema({
@@ -5,7 +6,7 @@ const feedStock = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  count: {
+  amount: {
     type: Number,
     required: true
   },
