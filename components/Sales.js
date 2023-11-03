@@ -30,21 +30,20 @@ const Sales = () => {
       quantity,
       unitPrice,
       totalPrice: calculateTotalPrice(),
-      //date: new Date().toLocaleDateString(),
+     // date: new Date().toLocaleDateString(),
     };
-
+    
     try {
       const createdSale = await createSale(salesData);
-
       // Handle the response if needed
-      console.log('Sale recorded:', createdSale);
+      
 
       // Clear the form fields after successful submission
       setCustomerName('');
       setPhone('');
       setItem('');
-      setQuantity(0);
-      setUnitPrice(0);
+      setQuantity('');
+      setUnitPrice('');
     } catch (error) {
       // Handle errors here
       console.error('Error creating sale', error);

@@ -45,8 +45,9 @@ export const fetchInventoryData = async () => {
 //function to record sales data
 
 export const createSale = async (saleData) => {
-  console.log(saleData)
   try {
+    console.log('Data being sent:', saleData); // Log the data being sent
+
     const response = await fetch(salesUrl, {
       method: 'POST',
       headers: {
@@ -59,12 +60,15 @@ export const createSale = async (saleData) => {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error creating sale', error);
     throw error;
   }
 };
+
+
 
 //function to fetch sales data
 export const fetchSales = async () => {

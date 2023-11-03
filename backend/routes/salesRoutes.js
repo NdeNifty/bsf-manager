@@ -29,7 +29,8 @@ router.get('/sales/:userId', async (req, res, next) => {
 // Add a new sale
 router.post('/add-sale', async (req, res, next) => {
     try {
-        const newSale = await salesController.recordSale(req, res);
+        const newSale = await salesController.recordSale(req.body);
+
         res.status(201).json(newSale); // 201 Created for resource creation
     } catch (err) {
         console.error('Error:', err.message);

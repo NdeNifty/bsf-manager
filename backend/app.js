@@ -12,11 +12,14 @@ const taskRoutes = require('./routes/tasksRoutes');
 const dataEntryRoutes = require('./routes/dataEntryRoutes');
 const passport = require('passport');
 const session = require('express-session');
+const bodyParser = require("body-parser")
 
 require('./config/passport-config'); // Add this line to import Passport configuration
 
 
 const app = express();
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
     secret: 'your-secret-key',

@@ -1,40 +1,24 @@
+
 // backend/models/SalesSchema.js
 const mongoose = require('mongoose');
 
-const saleSchema = new mongoose.Schema({
+const salesSchema = new mongoose.Schema({
+   date: {
+      type: Date,
+      default: Date.now,
+    },
    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: false,
-   },
-   customerName: {
-      type: String,
-      required: true,
-   },
-   phone: {
-      type: String,
-      required: false,
-   },
-   item: {
-      type: String,
-      required: true,
-   },
-   quantity: {
-      type: Number,
-      required: true,
-   },
-   unitPrice: {
-      type: Number,
-      required: true,
-   },
-   totalPrice: {
-      type: Number,
-      required: true,
-   },
-   date: {
-      type: Date,
-      default: Date.now,
-   }
+    },
+  customerName: String,
+  phone: String,
+  item: String,
+  quantity: Number,
+  unitPrice: Number,
+  totalPrice: Number,
+  
 });
 
-module.exports = mongoose.model('Sales', saleSchema);
+module.exports = mongoose.model('Sales', salesSchema);

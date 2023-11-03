@@ -2,9 +2,15 @@
 
 const Sale = require('../models/SalesSchema');
 
-exports.recordSale = async (saledata) => {
-    return await Sale.create(saledata);
+exports.recordSale = async (data) => {
+   try {
+       return await Sale.create(data);
+   } catch (error) {
+       console.error('Error recording sale:', error);
+       throw error;
+   }
 };
+
 
 exports.getSalesByUserId = async (userId) => {
     return await Sale.find({ userId });
