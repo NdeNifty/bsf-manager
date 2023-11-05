@@ -1,15 +1,36 @@
-// backend/controllers/salesController.js
-
 const Sale = require('../models/SalesSchema');
+const DataEntry = require('../models/DataEntrySchema'); // Import the DataEntry model
+const mongoose = require('mongoose');
 
-exports.recordSale = async (data) => {
-   try {
-       return await Sale.create(data);
-   } catch (error) {
-       console.error('Error recording sale:', error);
-       throw error;
-   }
+exports.recordSale = async (saleData) => {
+    const session = await mongoose.startSession(); // Start a transaction session
+    session.startTransaction();
+    try {
+        // Create the sale record
+        const sale = await Sale.create([saleData], { session });
+
+        // Create a corresponding negative data entry to reflect inventory reduction
+        // const negativeDataEntry = {
+        //     ...saleData, // Spread the sale data to keep the structure consistent
+        //     quantity: -Math.abs(saleData.quantity), // Ensure the quantity is negative
+        //     // Set additional fields if needed, such as date, userId, etc., based on your DataEntrySchema
+        // };
+        // await DataEntry.create([negativeDataEntry], { session });
+
+        // Commit the transaction
+        await session.commitTransaction();
+        session.endSession(); // End the session
+        return sale;
+    } catch (error) {
+        // If an error occurs, abort the transaction
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Error recording sale:', error);
+        throw error;
+    }
 };
+
+// Other controller methods...
 
 
 exports.getSalesByUserId = async (userId) => {

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const inventoryController = require('../controllers/inventory.controller');
 
+// fetch all entrires
+
 // Fetch aggregated data for Feedstock, Larvae, and Pupa
 router.get('/aggregated', inventoryController.getAggregatedData);
 

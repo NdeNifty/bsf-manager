@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createSale } from '../api/apiService'; // Import the API functions
+import { createSale } from '../api/apiService';
 
 const Sales = () => {
   const [customerName, setCustomerName] = useState('');
@@ -7,6 +7,8 @@ const Sales = () => {
   const [item, setItem] = useState('Eggs');
   const [quantity, setQuantity] = useState(0);
   const [unitPrice, setUnitPrice] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [salesData, setSalesData] = useState(null);
 
   const handleQuantityChange = (e) => {
     setQuantity(parseFloat(e.target.value));
@@ -20,30 +22,46 @@ const Sales = () => {
     return quantity * unitPrice;
   };
 
-  const handleFormSubmit = async (e) => {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const salesData = {
+    const data = {
       customerName,
       phone,
       item,
       quantity,
       unitPrice,
       totalPrice: calculateTotalPrice(),
-     // date: new Date().toLocaleDateString(),
+      // date: new Date().toLocaleDateString(),
     };
-    
-    try {
-      const createdSale = await createSale(salesData);
-      // Handle the response if needed
-      
 
-      // Clear the form fields after successful submission
-      setCustomerName('');
-      setPhone('');
-      setItem('');
-      setQuantity('');
-      setUnitPrice('');
+    setSalesData(data);
+    openModal();
+  };
+
+  const confirmSale = async () => {
+    try {
+      if (salesData) {
+        const createdSale = await createSale(salesData);
+        // Handle the response if needed
+
+        // Clear the form fields after successful submission
+        setCustomerName('');
+        setPhone('');
+        setItem('Eggs');
+        setQuantity(0);
+        setUnitPrice(0);
+        setSalesData(null);
+        closeModal();
+      }
     } catch (error) {
       // Handle errors here
       console.error('Error creating sale', error);
@@ -86,7 +104,6 @@ const Sales = () => {
             onChange={(e) => setItem(e.target.value)}
             required
             className="w-full p-2 border rounded"
-            placeholder='Select Item'
           >
             <option value="Eggs">Eggs</option>
             <option value="Larvae">Larvae</option>
@@ -137,10 +154,33 @@ const Sales = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover-bg-blue-700">
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700">
           Record Sale
         </button>
       </form>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2 className="modal-title">Confirm Sale</h2>
+            <p>Customer Name: {customerName}</p>
+            <p>Phone: {phone}</p>
+            <p>Item: {item}</p>
+            <p>Quantity: {quantity}</p>
+            <p>Unit Price: {unitPrice}</p>
+            <p>Total Price: {calculateTotalPrice()}</p>
+            <div className="flex justify-between">
+            <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded" onClick={closeModal}>
+              Cancel
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded" onClick={confirmSale}>
+              Confirm
+            </button>
+</div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };
