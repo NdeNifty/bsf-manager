@@ -1,68 +1,61 @@
-//components/Dataentry.js
-'use client'
 import React, { useState } from 'react';
-import { createDataEntry } from '../api/apiService'; // Import the API functions
+import { createDataEntry } from '../api/apiService';
+
 const Dataentry = () => {
   const [activeData, setActiveData] = useState(null);
   const [recordedValues, setRecordedValues] = useState({});
 
   const formatDataToRecord = (dataPoint, value) => {
-    switch (dataPoint) {
-      case 'Eggs Harvested':
-        return { eggsHarvested: value };
-      case 'Larvae Harvested':
-        return { larvaeHarvested: value };
-      case 'Pupae Planted':
-        return { pupaePlanted: value };
-      case 'Waste Input':
-        return { wasteInput: value };
-      case 'Waste Stock':
-        return { wasteStock: value };
-      default:
-        return {};
-    }
+    return {
+      dataItem: dataPoint,
+      datavalue: value,
+    };
   };
 
-  const recordData = (dataPoint, value) => {
-    // Format data to match backend schema
-    const dataToRecord = formatDataToRecord(dataPoint, value);
-  
-    createDataEntry(dataToRecord)
-      .then((createdEntry) => {
-        // Handle the response if needed
-        console.log('Data entry recorded:', createdEntry);
-  
-        // Clear the active data and update the UI if necessary
-        setRecordedValues({ ...recordedValues, [dataPoint]: value });
-        setActiveData(null);
-      })
-      .catch((error) => {
-        // Handle errors here
+ 
+  const recordData = async (dataPoint, value) => {
+    console.log( dataPoint, ": ", value);
+    const data = formatDataToRecord(dataPoint, value);
+    console.log(data);
+    try{
+      if(recordedValues){
+        const createdDataEntry = await createDataEntry(data);
+        console.log('Data entry recorded:', createdDataEntry);
+          setRecordedValues({ ...recordedValues, [dataPoint]: value });
+          setActiveData(null);
+      }
+    }
+      catch(error){
         console.error('Error creating data entry:', error);
-      });
+      }
+    // createDataEntry(data)
+    //   .then((createdEntry) => {
+    //     console.log('Data entry recorded:', createdEntry);
+    //     setRecordedValues({ ...recordedValues, [dataPoint]: value });
+    //     setActiveData(null);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error creating data entry:', error);
+    //   });
   };
-  
 
   return (
     <div className="dataentry">
       <div className="grid grid-cols-3 gap-4 sm:grid-cols-2 sm:grid-rows-3">
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Eggs Harvested')}>
-          Eggs  Harvested: {recordedValues['Eggs Harvested'] || 0}
+        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('eggsHarvested')}>
+          Eggs Harvested: {recordedValues['eggHarvested'] || 0}
         </div>
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Larvae Harvested')}>
-          Larvae Harvested: {recordedValues['Larvae Harvested'] || 0}
+        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('larvaeHarvested')}>
+          Larvae Harvested: {recordedValues['larvaeHarvested'] || 0}
         </div>
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Pupae Harvested')}>
-          Pupae Harvested: {recordedValues['Pupae Harvested'] || 0}
+        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('pupaePlanted')}>
+          Pupae Planted: {recordedValues['pupaePlanted'] || 0}
         </div>
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Pupae Planted')}>
-          Pupae Planted: {recordedValues['Pupae Planted'] || 0}
+        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('wasteStock')}>
+          Waste Stock: {recordedValues['wasteStock'] || 0}
         </div>
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Waste Stock')}>
-          Waste Stock: {recordedValues['Waste Stock'] || 0}
-        </div>
-        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('Waste Input')}>
-          Waste Input: {recordedValues['Waste Input'] || 0}
+        <div className="border p-4 cursor-pointer" onClick={() => setActiveData('wasteConsumed')}>
+          Waste Consumed: {recordedValues['wasteConsumed'] || 0}
         </div>
       </div>
       {activeData && (

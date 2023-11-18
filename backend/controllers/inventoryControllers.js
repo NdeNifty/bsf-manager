@@ -1,26 +1,56 @@
-const Inventory = require('../models/DataEntrySchema');
+// backend/controllers/inventoryController.js
+const DataEntry = require('../models/DataEntrySchema');
+const Sales = require('../models/SalesSchema');
 
-// Create a new inventory entry
-exports.createInventory = async (data) => {
-  return await Inventory.create(data);
-};
+async function getInventoryData() {
+  // Aggregates for DataEntry
+  const dataEntryAggregates = await DataEntry.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalEggsHarvested: { $sum: "$eggsHarvested" },
+        totalLarvaeHarvested: { $sum: "$larvaeHarvested" },
+        totalPupaePlanted: { $sum: "$pupaePlanted" },
+        totalWasteInput: { $sum: "$wasteInput" },
+        totalWasteStock: { $sum: "$wasteStock" },
+      },
+    },
+  ]);
 
-// Get inventory entries by user ID
-exports.getInventoryByUserId = async (userId) => {
-  return await Inventory.find({ userId });
-};
+  // Format the data entry aggregates into an object for easier access
+  const formattedDataEntryAggregates = dataEntryAggregates.length > 0 ? dataEntryAggregates[0] : {
+    totalEggsHarvested: 0,
+    totalLarvaeHarvested: 0,
+    totalPupaePlanted: 0,
+    totalWasteInput: 0,
+    totalWasteStock: 0
+  };
 
-// Update an inventory entry by ID
-exports.updateInventory = async (inventoryId, data) => {
-  return await Inventory.findByIdAndUpdate(inventoryId, data, { new: true });
-};
+  // Aggregates for Sales
+  const salesAggregates = await Sales.aggregate([
+    {
+      $group: {
+        _id: "$item",
+        totalQuantitySold: { $sum: "$quantity" },
+      },
+    },
+  ]);
 
-// Delete an inventory entry by ID
-exports.deleteInventory = async (inventoryId) => {
-  return await Inventory.findByIdAndRemove(inventoryId);
-};
+  // Format the sales aggregates into an object for easier access
+  const formattedSalesAggregates = salesAggregates.reduce((acc, curr) => {
+    acc[curr._id] = curr.totalQuantitySold;
+    return acc;
+  }, {});
 
-// Get all inventories
-exports.getAllInventory = async () => {
-  return await Inventory.find();
+  // Combine the results
+  const combinedResults = {
+    dataEntry: formattedDataEntryAggregates,
+    sales: formattedSalesAggregates,
+  };
+
+  return combinedResults;
+}
+
+module.exports = {
+  getInventoryData,
 };

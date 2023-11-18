@@ -9,7 +9,8 @@ router.get('/tasks', async (req, res, next) => {
         const tasks = await Task.find({ userId: req.user._id });
         res.status(200).json(tasks);
     } catch (err) {
-        next(err);
+        next(err); 
+        
     }
 });
 

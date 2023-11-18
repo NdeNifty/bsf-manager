@@ -19,7 +19,7 @@ router.get('/all-data-entries', async (req, res, next) => {
 // Get data entries for a user by ID
 router.get('/data-entries/:userId', async (req, res, next) => {
     try {
-        const entries = await dataEntryController.getDataEntriesByUserId(req, res);
+        const entries = await dataEntryController.getDataEntriesByUserId(req.body);
         console.log(entries);
         res.status(200).json(entries);
     } catch (err) {
@@ -31,8 +31,8 @@ router.get('/data-entries/:userId', async (req, res, next) => {
 // Add a new data entry
 router.post('/add-data-entry', async (req, res, next) => {
     try {
-        const newEntry = await dataEntryController.createDataEntry(req, res);
-        res.status(201).json(newEntry); // 201 Created for resource creation
+        const newDataEntry = await dataEntryController.createDataEntry(req.body);
+        res.status(201).json(newDataEntry); // 201 Created for resource creation
     } catch (err) {
         console.error('Error:', err.message);
         next(err);  // Pass the error to the error-handling middleware

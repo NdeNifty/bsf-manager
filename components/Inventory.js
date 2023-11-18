@@ -10,22 +10,17 @@ const Inventory = () => {
     fetch('http://localhost:3001/api/aggregated') // Replace with your API endpoint
         .then((response) => response.json())
         .then((data) => {
-            // Assuming you're getting the above format
-            let larvaeHarvested = data.find(item => item.larvaeHarvested)?.larvaeHarvested || 0;
-            let pupaePlanted = data.find(item => item.pupaePlanted)?.pupaePlanted || 0;
-            let wasteavailable = data.find(item => item.pupaePlanted)?.pupaePlanted || 0;
-            
-
-            // Modify this if you're getting more/different data
-            setInventoryData({
-                larvaeCount: larvaeHarvested,
-                pupaeCount: pupaePlanted,
-                wasteavailable: wasteavailable,
-                // ... add other data as needed
-            });
+           
+             // Process and set the inventory data
+        setInventoryData({
+          larvaeCount: data.dataEntry.totalLarvaeHarvested - (data.sales.larvae || 0),
+          pupaeCount: data.dataEntry.totalPupaePlanted - (data.sales.pupae || 0),
+          feedstockAvailable: data.dataEntry.totalWasteStock,
+          // ... additional processing as needed
+        });
         })
         .catch((error) => {
-            console.error(error);
+          console.error('Error fetching inventory data:', error);
         });
 }, []);
 

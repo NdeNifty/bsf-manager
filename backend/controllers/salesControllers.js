@@ -9,14 +9,7 @@ exports.recordSale = async (saleData) => {
         // Create the sale record
         const sale = await Sale.create([saleData], { session });
 
-        // Create a corresponding negative data entry to reflect inventory reduction
-        // const negativeDataEntry = {
-        //     ...saleData, // Spread the sale data to keep the structure consistent
-        //     quantity: -Math.abs(saleData.quantity), // Ensure the quantity is negative
-        //     // Set additional fields if needed, such as date, userId, etc., based on your DataEntrySchema
-        // };
-        // await DataEntry.create([negativeDataEntry], { session });
-
+        
         // Commit the transaction
         await session.commitTransaction();
         session.endSession(); // End the session

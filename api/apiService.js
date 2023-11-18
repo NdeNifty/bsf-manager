@@ -6,14 +6,16 @@ const salesUrl = 'http://localhost:3001/api/add-sale';
 // Adjust the base URL as needed
 
 // Function to create a new data entry
-export const createDataEntry = async (data) => {
+export const createDataEntry = async (dataPoint) => {
+  console.log("The data being sent: ", dataPoint)
   try {
+    
     const response = await fetch(dataentryUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataPoint),
     });
     
     if (!response.ok) {
