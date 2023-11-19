@@ -8,8 +8,6 @@ exports.recordSale = async (saleData) => {
     try {
         // Create the sale record
         const sale = await Sale.create([saleData], { session });
-
-        
         // Commit the transaction
         await session.commitTransaction();
         session.endSession(); // End the session

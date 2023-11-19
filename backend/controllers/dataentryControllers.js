@@ -7,7 +7,7 @@ exports.createDataEntry = async (dataPoint) => {
     const session = await mongoose.startSession(); // Start a transaction session
     session.startTransaction();
     try {
-        const createdEntry = await DataEntry.create(dataPoint, { session });
+        const createdEntry = await DataEntry.create([dataPoint], { session });
         // Commit the transaction
         await session.commitTransaction();
         session.endSession(); // End the session

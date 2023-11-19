@@ -8,7 +8,7 @@ const Dataentry = () => {
   const formatDataToRecord = (dataPoint, value) => {
     return {
       dataItem: dataPoint,
-      datavalue: value,
+      dataValue: value,
     };
   };
 

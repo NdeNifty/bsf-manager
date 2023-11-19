@@ -19,6 +19,12 @@ require('./config/passport-config'); // Add this line to import Passport configu
 
 const app = express();
 app.use(express.json());
+
+// Middleware
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
@@ -32,10 +38,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use('/', authRoutes);
 
-// Middleware
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
 
 
 // Routes

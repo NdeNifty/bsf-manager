@@ -13,11 +13,12 @@ const Inventory = () => {
            
              // Process and set the inventory data
         setInventoryData({
-          larvaeCount: data.dataEntry.totalLarvaeHarvested - (data.sales.larvae || 0),
-          pupaeCount: data.dataEntry.totalPupaePlanted - (data.sales.pupae || 0),
-          feedstockAvailable: data.dataEntry.totalWasteStock,
+          larvaeCount: data.inventory.totalLarvaeLeft,
+          pupaeCount: data.inventory.totalPupaeLeft,
+          feedstockAvailable: data.inventory.totalWasteStock,
           // ... additional processing as needed
         });
+        
         })
         .catch((error) => {
           console.error('Error fetching inventory data:', error);
@@ -30,7 +31,7 @@ const Inventory = () => {
       <h1 className="text-2xl font-semibold mb-4">Farm Inventory</h1>
       <div className="border p-4">
         <h2 className="text-xl font-semibold mb-2">Feedstock</h2>
-        <p>Feedstock Availability: {inventoryData.wasteavailable} kg</p>
+        <p>Feedstock Available: {inventoryData.feedstockAvailable} kg</p>
         {/* Add more feedstock details here */}
       </div>
       <div className="border p-4">
