@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css'
+import Kpis from './dashboard/kpis';
 
 const Dashboard = () => {
   const [inventoryData, setInventoryData] = useState({});
@@ -46,6 +47,8 @@ const Dashboard = () => {
 }, []);
 
   return (
+    <div>
+      <Kpis />
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {/* Inventory Data */}
       <div className="border p-4">
@@ -78,6 +81,7 @@ const Dashboard = () => {
         <p>Pupae Sales: {pupaeSales}</p>
         <p>Eggs Sales: {eggsSales}</p>
       </div>
+    </div>
     </div>
   );
 };

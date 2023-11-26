@@ -38,7 +38,7 @@ async function getInventoryData() {
   const inventory = {
     totalLarvaeLeft: formattedDataEntryAggregates['larvaeHarvested'] - (formattedSalesAggregates['Larvae'] || 0),
     totalPupaeLeft: formattedDataEntryAggregates['pupaePlanted'] - (formattedSalesAggregates['Pupae'] || 0),
-    totalWasteStock: formattedDataEntryAggregates['wasteStock'], // If you need to subtract consumed waste, include it here
+    totalWasteStock: formattedDataEntryAggregates['wasteStock']-(formattedDataEntryAggregates['wasteConsumed'] || 0), // If you need to subtract consumed waste, include it here
     // ... any other inventory calculations
   };
 
