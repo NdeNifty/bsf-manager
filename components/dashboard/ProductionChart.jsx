@@ -8,7 +8,7 @@ import {
    Tooltip,
    Legend
    } from "recharts";
-   class SalesChart extends React.Component {
+   class ProductionChart extends React.Component {
       data = [
          {
             name: "Jan 2019",
@@ -73,4 +73,4 @@ import {
       );
    }
 }
-export default SalesChart;
+export default ProductionChart;
