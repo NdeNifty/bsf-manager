@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import SalesChart from './dashboard/saleschart';
-import Kpis from './dashboard/kpis';
+import SalesChart from './dashboard/Saleschart';
+import Kpis from './dashboard/Kpis';
 
 
 
