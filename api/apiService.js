@@ -3,6 +3,8 @@
 const dataentryUrl = 'http://localhost:3001/api/add-data-entry'; 
 const getinventoryUrl = 'http://localhost:3001/api/aggregated';
 const salesUrl = 'http://localhost:3001/api/add-sale';
+const saveSettingsUrl = 'http://localhost:3001/api/save-settings'; // Adjust the URL as needed
+const getSettingsUrl = 'http://localhost:3001/api/get-settings'; // Adjust the URL as needed
 // Adjust the base URL as needed
 
 // Function to create a new data entry
@@ -87,3 +89,41 @@ export const fetchSales = async () => {
 };
 
 // Add other API functions for GET, PUT, and DELETE requests as needed.
+
+//Get Settings from DB
+export const fetchSettings = async () => {
+  try {
+    const response = await fetch(getSettingsUrl);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching settings', error);
+    throw error;
+  }
+};
+
+
+//Save Settings to DB
+export const saveSettings = async (settingsData) => {
+  try {
+    const response = await fetch(saveSettingsUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(settingsData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error saving settings', error);
+    throw error;
+  }
+};
+

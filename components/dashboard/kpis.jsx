@@ -1,9 +1,21 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import FarmSettings from '../Settings';
+import CurrentWeather from '../weather/currentweather';
 import 'tailwindcss/tailwind.css';
 
 const Kpis = () => {
     const [inventoryData, setInventoryData] = useState({});
+
+    const [settings, setSettings] = useState({
+        location: '',
+        units: 'metric',
+        notificationsEnabled: false
+      });
+    
+      const handleSaveSettings = (newSettings) => {
+        setSettings(newSettings);
+      };
 
     useEffect(() => {
       // Fetch inventory data from your backend
@@ -44,8 +56,15 @@ const Kpis = () => {
                 <span className="text-2xl font-bold">{inventoryData.feedstockAvailable} <span>Kg</span></span>
             </div>
             <div className="flex flex-col items-center p-2 4 m-2 w-60 bg-blue-500 text-white rounded-sm shadow-xl">
-                <span className="text-lg font-semibold">Current Temperature</span>
-                <span className="text-2xl font-bold">56 <span>Degrees</span></span>
+                {/* <span className="text-lg font-semibold">Current Temperature</span>
+                <span className="text-2xl font-bold">56 <span>Degrees</span></span> */}
+                
+                <div>
+                   <CurrentWeather />
+              </div>
+
+            
+
             </div>
         </div>
     );

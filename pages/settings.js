@@ -2,16 +2,16 @@
 'use client';
 import React from 'react';
 import Layout from '../components/Layout';
-import Sales from '../components/Sales';
+import FarmSettings from '../components/Settings';
 import 'tailwindcss/tailwind.css'
 
-function Salespage() {
+function FarmSettingsPage() {
   return (
     <Layout>
-      <Sales />
+      <FarmSettings />
     </Layout>
   );
 };
 
-export default Salespage;
+export default FarmSettingsPage ;
 
