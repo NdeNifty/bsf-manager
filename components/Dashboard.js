@@ -14,7 +14,7 @@ const ProductionChartWithNoSSR = dynamic(() => import('./dashboard/ProductionCha
 const EfficientcyChartWithNoSSR = dynamic(() => import('./dashboard/EfficiencyChart'), {
   ssr: false
 });
-const ProductionForcastChartWithNoSSR = dynamic(() => import('./dashboard/ProductionForcastChart'), {
+const LarvaeForcastChartWithNoSSR = dynamic(() => import('./dashboard/LarvaeForcastChart'), {
   ssr: false
 });
 const smallColumn = () => {
@@ -32,8 +32,8 @@ const Dashboard = () => {
           <ProductionChartWithNoSSR />
           <EfficientcyChartWithNoSSR />
         </div>
-        <div className="col-span-4"> {/* Adjusted to take 3/12 of the width */}
-          <ProductionForcastChartWithNoSSR />
+        <div className="col-span-4 h-64"> {/* Adjusted to take 3/12 of the width */}
+          <LarvaeForcastChartWithNoSSR />
           
         </div>
       </div>

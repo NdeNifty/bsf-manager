@@ -115,7 +115,7 @@ const ProductionChart = () => {
         </select>
       </div>
       <AreaChart
-        width={730}
+        width={850}
         height={250}
         data={productionData}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>

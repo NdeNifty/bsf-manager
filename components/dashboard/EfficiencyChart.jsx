@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import moment from 'moment';
 
 const EfficiencyChart = () => {
@@ -123,8 +123,8 @@ const EfficiencyChart = () => {
           <option value="yearly">Yearly</option>
         </select>
       </div>
-      <LineChart
-        width={730}
+      <AreaChart
+        width={850}
         height={250}
         data={efficiencyData}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -134,8 +134,8 @@ const EfficiencyChart = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="efficiency" stroke="#82ca9d" activeDot={{ r: 8 }} />
-      </LineChart>
+        <Area type="monotone" dataKey="efficiency" stroke="#82ca9d" fill="#82ca9d" activeDot={{ r: 8 }} />
+      </AreaChart>
     </div>
   );
 };
