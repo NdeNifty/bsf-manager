@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 import dynamic from 'next/dynamic';
 import Kpis from './dashboard/Kpis';
 import FarmSettings from './Settings';
+import TemperatureForecastChart from './weather/7daysforcast';
 
 // Import SalesChart dynamically with SSR disabled
 const SalesChartWithNoSSR = dynamic(() => import('./dashboard/Saleschart'), {
@@ -36,7 +37,9 @@ const Dashboard = () => {
         </div>
         <div className="col-span-4 h-64">
           <LarvaeForcastChartWithNoSSR />
+          <TemperatureForecastChart />
         </div>
+        
       </div>
     </div>
   );

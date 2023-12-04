@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import 'tailwindcss/tailwind.css';
 
 
 const CurrentWeather = ({ location: propLocation }) => {
   const [location, setLocation] = useState(propLocation || '');
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/get-settings')
+    fetch('http://localhost:3001/api/get-settings')
       .then(response => response.json())
       .then(data => {
         setLocation(data.location);
+        console.log("The lcoation coming in is :",data.location)
         // You can also set other settings if needed
       });
   }, []);
@@ -37,8 +39,8 @@ const CurrentWeather = ({ location: propLocation }) => {
 
   return (
     <div>
-      {weather.temperature && <p>Temperature: {weather.temperature} °C</p>}
-      {weather.humidity && <p>Humidity: {weather.humidity} %</p>}
+      {weather.temperature && <div className=" text-2xl font-semibold">Temp: {weather.temperature} °C</div>}
+      {weather.humidity && <div  className=" text-lg font-semibold">Humidity: {weather.humidity} %</div>}
     </div>
   );
 };

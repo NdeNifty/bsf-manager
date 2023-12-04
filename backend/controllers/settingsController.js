@@ -5,14 +5,22 @@ const SettingsController = {
   async saveSettings(req, res) {
     const { location, units, notificationsEnabled } = req.body;
     try {
-      const settings = new Settings({ location, units, notificationsEnabled });
-      const savedSettings = await settings.save();
-      res.status(200).json(savedSettings);
+      const updatedSettings = await Settings.findOneAndUpdate(
+        {}, // an empty filter selects the first document found
+        { location, units, notificationsEnabled }, // fields to update
+        {
+          new: true, // return the updated document
+          upsert: true, // make this update into an upsert
+          runValidators: true // ensure that schema validations are applied
+        }
+      );
+      res.status(200).json(updatedSettings);
     } catch (error) {
       console.error('Error saving settings:', error);
       res.status(500).json({ message: "Error saving settings", error: error.message });
     }
-  },
+  }
+  ,
 
   async getSettings(req, res) {
     try {
