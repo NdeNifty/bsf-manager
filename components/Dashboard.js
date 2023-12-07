@@ -27,21 +27,32 @@ const Dashboard = () => {
 
 
   return (
-    <div>
-      <Kpis />
-      <div className="grid grid-cols-12 w-full">
-        <div className="col-span-8">
+    <div className="dashboardbg px-4">
+    <Kpis />
+    <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-4">
+      <div className="col-span-1 md:col-span-8">
+        <div className="bg-white border rounded pb-2">
           <SalesChartWithNoSSR />
+        </div>
+        <div className="bg-white border rounded pb-2 mt-2">
           <ProductionChartWithNoSSR />
+        </div>
+        <div className="bg-white border rounded pb-2 mt-2">
           <EfficiencyChartWithNoSSR />
         </div>
-        <div className="col-span-4 h-64">
+      </div>
+  
+      <div className="col-span-1 md:col-span-4 pb-2 h-auto md:h-64">
+        <div className="bg-white border rounded pb-2">
           <LarvaeForcastChartWithNoSSR />
+        </div>
+        <div className="bg-white border rounded pb-2 mt-2">
           <TemperatureForecastChart />
         </div>
-        
       </div>
     </div>
+  </div>
+  
   );
 };
 

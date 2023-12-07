@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import moment from 'moment';
 
 const TemperatureForecastChart = ({ location: propLocation }) => {
@@ -22,6 +22,7 @@ const TemperatureForecastChart = ({ location: propLocation }) => {
 
   const fetchForecastData = async (location) => {
     try {
+      //we use open weathermap to change the location to lat and long
       const geocodingResp = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${locationApiKey}`);
       const geocodingData = await geocodingResp.json();
       
@@ -30,7 +31,7 @@ const TemperatureForecastChart = ({ location: propLocation }) => {
       }
 
       const { lat, lon } = geocodingData[0];
-
+      //we use open meteo to get the forcast
       const forecastResp = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
       const forecastData = await forecastResp.json();
 
@@ -51,22 +52,27 @@ const TemperatureForecastChart = ({ location: propLocation }) => {
   }
 
   return (
-    <div>
-      <LineChart
-        width={400}
-        height={250}
-        data={forecastData}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="high" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="low" stroke="#82ca9d" />
-      </LineChart>
+    <div className="text-center">
+    <div className="mt-2"> 
+        <span>Temperature Forecast</span>
     </div>
+    <div style={{ width: '100%', height: 300 }}>
+        <ResponsiveContainer>
+            <LineChart
+                data={forecastData}
+                margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="high" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="low" stroke="#82ca9d" />
+            </LineChart>
+        </ResponsiveContainer>
+    </div>
+</div>
+
   );
 };
 

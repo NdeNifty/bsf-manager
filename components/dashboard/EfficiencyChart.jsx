@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import moment from 'moment';
 
 const EfficiencyChart = () => {
@@ -114,29 +114,33 @@ const EfficiencyChart = () => {
 
   return (
     <div>
-      <div className="mb-4">
-        <label htmlFor="timeframe-select" className="mr-2">Select Timeframe:</label>
+    <div className="my-2 flex flex-col sm:flex-row justify-between items-center">
+        <span htmlFor="timeframe-select" className="font-bold mx-2 mb-2 sm:mb-0">Efficiency</span>
         <select id="timeframe-select" value={timeframe} onChange={handleChange} className="p-2 rounded border">
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="quarterly">Quarterly</option>
-          <option value="yearly">Yearly</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
         </select>
-      </div>
-      <AreaChart
-        width={850}
-        height={250}
-        data={efficiencyData}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" tickFormatter={formatXAxis} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Area type="monotone" dataKey="efficiency" stroke="#82ca9d" fill="#82ca9d" activeDot={{ r: 8 }} />
-      </AreaChart>
     </div>
+
+    <div style={{ width: '100%', height: 300 }}>
+        <ResponsiveContainer>
+            <AreaChart
+                data={efficiencyData}
+                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+                <CartesianGrid strokeDasharray="1 0" />
+                <XAxis dataKey="date" tickFormatter={formatXAxis} />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Area type="monotone" dataKey="efficiency" stroke="#82ca9d" fill="#82ca9d" activeDot={{ r: 8 }} />
+            </AreaChart>
+        </ResponsiveContainer>
+    </div>
+</div>
+
   );
 };
 

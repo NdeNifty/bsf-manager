@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  ResponsiveContainer,
   AreaChart,
   Area,
   YAxis,
@@ -105,49 +106,54 @@ const ProductionChart = () => {
 
   return (
     <div>
-      <div className="mb-4">
-        <label htmlFor="timeframe-select" className="mr-2">Select Timeframe:</label>
+    <div className="my-2 flex flex-col sm:flex-row justify-between items-center">
+        <span htmlFor="timeframe-select" className="font-bold mx-2 mb-2 sm:mb-0">Production:</span>
         <select id="timeframe-select" value={timeframe} onChange={handleChange} className="p-2 rounded border">
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="quarterly">Quarterly</option>
-          <option value="yearly">Yearly</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
         </select>
-      </div>
-      <AreaChart
-        width={850}
-        height={250}
-        data={productionData}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" tickFormatter={formatXAxis} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        {productionData[0] && Object.keys(productionData[0])
-          .filter(key => key !== 'date')
-          .map((key, idx) => (
-            <Area
-              key={key}
-              type="monotone"
-              dataKey={key}
-              stroke={colors[idx % colors.length]}
-              fillOpacity={0.6}
-              fill={`url(#color${key.replace(/\s+/g, '')})`}
-            />
-        ))}
-        {productionData[0] && Object.keys(productionData[0])
-          .filter(key => key !== 'date')
-          .map((key, idx) => (
-            <defs key={key}>
-              <linearGradient id={`color${key.replace(/\s+/g, '')}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={colors[idx % colors.length]} stopOpacity={0.8}/>
-                <stop offset="95%" stopColor={colors[idx % colors.length]} stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-        ))}
-      </AreaChart>
     </div>
+
+    <div style={{ width: '100%', height: 300 }}>
+        <ResponsiveContainer>
+            <AreaChart
+                data={productionData}
+                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+                <CartesianGrid strokeDasharray="1 0" />
+                <XAxis dataKey="date" tickFormatter={formatXAxis} />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {productionData[0] && Object.keys(productionData[0])
+                    .filter(key => key !== 'date')
+                    .map((key, idx) => (
+                        <Area
+                            key={key}
+                            type="monotone"
+                            dataKey={key}
+                            stroke={colors[idx % colors.length]}
+                            fillOpacity={0.6}
+                            fill={`url(#color${key.replace(/\s+/g, '')})`}
+                        />
+                    ))}
+                {productionData[0] && Object.keys(productionData[0])
+                    .filter(key => key !== 'date')
+                    .map((key, idx) => (
+                        <defs key={key}>
+                            <linearGradient id={`color${key.replace(/\s+/g, '')}`} x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor={colors[idx % colors.length]} stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor={colors[idx % colors.length]} stopOpacity={0}/>
+                            </linearGradient>
+                        </defs>
+                    ))}
+            </AreaChart>
+        </ResponsiveContainer>
+    </div>
+</div>
+
   );
 };
 

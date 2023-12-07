@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import moment from 'moment';
 
 const LarvaeForecastChart = () => {
@@ -32,13 +32,22 @@ const LarvaeForecastChart = () => {
   };
 
   return (
-    <BarChart width={400} height={250} data={forecastData}>
-      
-      <XAxis dataKey="date" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="larvae" fill="#82ca9d" />
-    </BarChart>
+    <div className="text-center">
+    <div className="mt-2">
+        <span>Larvae Forecast</span>
+    </div>
+    <div style={{ width: '100%', height: 300 }}>
+        <ResponsiveContainer>
+            <BarChart data={forecastData}>
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="larvae" fill="#82ca9d" />
+            </BarChart>
+        </ResponsiveContainer>
+    </div>
+</div>
+
   );
 };
 
